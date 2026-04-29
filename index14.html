@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>String Operations</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  width: 350px;
+  margin: 60px auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+
+button {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background: #eee;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ddd;
+}
+
+.result {
+  margin-top: 15px;
+  padding: 10px;
+  background: white;
+  border: 1px solid #ddd;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>String Operations</h2>
+
+  <input type="text" id="inputText" placeholder="Enter text">
+
+  <div class="buttons">
+    <button onclick="reverseText()">Reverse</button>
+    <button onclick="toUpper()">Uppercase</button>
+    <button onclick="toLower()">Lowercase</button>
+    <button onclick="getLength()">Length</button>
+  </div>
+
+  <div class="result" id="result">Result will appear here</div>
+</div>
+
+<script>
+const input = document.getElementById("inputText");
+const result = document.getElementById("result");
+
+// REVERSE
+function reverseText() {
+  const text = input.value;
+  result.innerText = text.split("").reverse().join("");
+}
+
+// UPPERCASE
+function toUpper() {
+  result.innerText = input.value.toUpperCase();
+}
+
+// LOWERCASE
+function toLower() {
+  result.innerText = input.value.toLowerCase();
+}
+
+// LENGTH
+function getLength() {
+  result.innerText = input.value.length;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Performance</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.container {
+  width: 80%;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.chart-box {
+  background: white;
+  padding: 20px;
+  margin: 20px 0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Student Performance Dashboard</h2>
+
+  <div class="chart-box">
+    <h3>Marks (Subjects)</h3>
+    <canvas id="marksChart"></canvas>
+  </div>
+
+  <div class="chart-box">
+    <h3>Progress Over Time</h3>
+    <canvas id="progressChart"></canvas>
+  </div>
+
+  <div class="chart-box">
+    <h3>Attendance</h3>
+    <canvas id="attendanceChart"></canvas>
+  </div>
+</div>
+
+<script>
+// DATA
+const subjects = ["Math", "Science", "English", "CS", "History"];
+const marks = [85, 78, 88, 92, 70];
+
+const progressLabels = ["Test1", "Test2", "Test3", "Test4"];
+const progressData = [65, 72, 80, 88];
+
+const attendanceData = [85, 15]; // present, absent
+
+// BAR CHART (Marks)
+new Chart(document.getElementById("marksChart"), {
+  type: "bar",
+  data: {
+    labels: subjects,
+    datasets: [{
+      label: "Marks",
+      data: marks
+    }]
+  }
+});
+
+// LINE CHART (Progress)
+new Chart(document.getElementById("progressChart"), {
+  type: "line",
+  data: {
+    labels: progressLabels,
+    datasets: [{
+      label: "Progress",
+      data: progressData,
+      fill: false,
+      tension: 0.3
+    }]
+  }
+});
+
+// PIE CHART (Attendance)
+new Chart(document.getElementById("attendanceChart"), {
+  type: "pie",
+  data: {
+    labels: ["Present", "Absent"],
+    datasets: [{
+      data: attendanceData
+    }]
+  }
+});
+</script>
+
+</body>
+</html>

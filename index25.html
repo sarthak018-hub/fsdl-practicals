@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bar Chart</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  width: 60%;
+  margin: 50px auto;
+  text-align: center;
+}
+
+/* CHART */
+.chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 200px;
+  margin-top: 20px;
+  border-left: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  padding: 10px;
+}
+
+/* BAR CONTAINER */
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;   /* 🔥 IMPORTANT */
+}
+
+/* BAR */
+.bar {
+  width: 40px;
+  background: #777;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+}
+
+/* LABEL */
+.label {
+  margin-top: 5px;
+  font-size: 12px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Students by Department</h2>
+  <div class="chart" id="chart"></div>
+</div>
+
+<script>
+// DATA
+const data = [
+  { dept: "CSE", count: 100 },
+  { dept: "IT", count: 45 },
+  { dept: "ECE", count: 30 },
+  { dept: "ME", count: 20 }
+];
+
+const chart = document.getElementById("chart");
+
+// MAX VALUE
+const max = Math.max(...data.map(d => d.count));
+
+// RENDER
+data.forEach(d => {
+
+  const barContainer = document.createElement("div");
+  barContainer.className = "bar-container";
+
+  const bar = document.createElement("div");
+  bar.className = "bar";
+
+  const height = (d.count / max) * 100;
+  bar.style.height = height + "%";
+
+  bar.innerText = d.count;
+
+  const label = document.createElement("div");
+  label.className = "label";
+  label.innerText = d.dept;
+
+  barContainer.appendChild(bar);
+  barContainer.appendChild(label);
+
+  chart.appendChild(barContainer);
+});
+</script>
+
+</body>
+</html>

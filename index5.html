@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Theme Switcher</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* LIGHT (default) */
+.light {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* DARK */
+.dark {
+  background: #121212;
+  color: #ffffff;
+}
+
+.container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Theme Switcher</h2>
+  <button id="toggleBtn">Toggle Theme</button>
+</div>
+
+<script>
+const body = document.body;
+const btn = document.getElementById("toggleBtn");
+
+// load saved theme
+let savedTheme = localStorage.getItem("theme");
+
+// apply saved or default
+if (savedTheme) {
+  body.classList.add(savedTheme);
+} else {
+  body.classList.add("light");
+}
+
+// toggle function
+btn.onclick = () => {
+  if (body.classList.contains("light")) {
+    body.classList.remove("light");
+    body.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    body.classList.remove("dark");
+    body.classList.add("light");
+    localStorage.setItem("theme", "light");
+  }
+};
+</script>
+
+</body>
+</html>

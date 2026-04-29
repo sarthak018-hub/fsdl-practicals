@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pricing Toggle</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.container {
+  width: 70%;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.toggle {
+  margin: 20px 0;
+}
+
+button {
+  padding: 8px 15px;
+  margin: 5px;
+  cursor: pointer;
+  border: 1px solid #333;
+  background: white;
+}
+
+.active {
+  background: #333;
+  color: white;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  width: 150px;
+  border: 1px solid #ddd;
+}
+
+.price {
+  font-size: 20px;
+  margin: 10px 0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Pricing Plans</h2>
+
+  <div class="toggle">
+    <button id="monthlyBtn" class="active">Monthly</button>
+    <button id="yearlyBtn">Yearly</button>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Basic</h3>
+      <div class="price" id="price-basic">₹199 /month</div>
+    </div>
+
+    <div class="card">
+      <h3>Pro</h3>
+      <div class="price" id="price-pro">₹399 /month</div>
+    </div>
+
+    <div class="card">
+      <h3>Premium</h3>
+      <div class="price" id="price-premium">₹699 /month</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// BASE DATA
+const prices = {
+  basic: 199,
+  pro: 399,
+  premium: 699
+};
+
+// DOM
+const monthlyBtn = document.getElementById("monthlyBtn");
+const yearlyBtn = document.getElementById("yearlyBtn");
+
+// PRICE ELEMENTS
+const priceBasic = document.getElementById("price-basic");
+const pricePro = document.getElementById("price-pro");
+const pricePremium = document.getElementById("price-premium");
+
+// UPDATE FUNCTION (core logic)
+function updatePrices(mode) {
+  if (mode === "monthly") {
+    priceBasic.innerText = `₹${prices.basic} /month`;
+    pricePro.innerText = `₹${prices.pro} /month`;
+    pricePremium.innerText = `₹${prices.premium} /month`;
+  } else {
+    priceBasic.innerText = `₹${prices.basic * 10} /year`;
+    pricePro.innerText = `₹${prices.pro * 10} /year`;
+    pricePremium.innerText = `₹${prices.premium * 10} /year`;
+  }
+}
+
+// EVENTS
+monthlyBtn.onclick = () => {
+  monthlyBtn.classList.add("active");
+  yearlyBtn.classList.remove("active");
+  updatePrices("monthly");
+};
+
+yearlyBtn.onclick = () => {
+  yearlyBtn.classList.add("active");
+  monthlyBtn.classList.remove("active");
+  updatePrices("yearly");
+};
+</script>
+
+</body>
+</html>

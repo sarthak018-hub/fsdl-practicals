@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Responsive Navbar</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+  background: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-weight: bold;
+}
+
+/* LINKS */
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background: white;
+  color: black;
+  top: 25px;
+  min-width: 120px;
+  border: 1px solid #ddd;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 8px;
+  color: black;
+}
+
+/* MOBILE */
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #333;
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    left: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<div class="navbar">
+  <div class="logo">MySite</div>
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+
+    <div class="dropdown">
+      <a href="#" onclick="toggleDropdown(event)">Services ▼</a>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#">Web Dev</a>
+        <a href="#">App Dev</a>
+      </div>
+    </div>
+
+    <a href="#">Contact</a>
+  </div>
+</div>
+
+<script>
+// MOBILE MENU
+function toggleMenu() {
+  const nav = document.getElementById("navLinks");
+  nav.style.display = (nav.style.display === "flex") ? "none" : "flex";
+}
+
+// DROPDOWN
+function toggleDropdown(event) {
+  event.preventDefault();
+  const menu = document.getElementById("dropdownMenu");
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+// CLOSE DROPDOWN WHEN CLICK OUTSIDE
+window.onclick = function(e) {
+  if (!e.target.matches('.dropdown a')) {
+    document.getElementById("dropdownMenu").style.display = "none";
+  }
+};
+</script>
+
+</body>
+</html>

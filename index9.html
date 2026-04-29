@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Drag and Drop List</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.container {
+  width: 300px;
+  margin: 50px auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: white;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  cursor: grab;
+}
+
+.dragging {
+  opacity: 0.5;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Drag & Drop List</h2>
+
+  <ul id="list">
+    <li draggable="true">Item 1</li>
+    <li draggable="true">Item 2</li>
+    <li draggable="true">Item 3</li>
+    <li draggable="true">Item 4</li>
+    <li draggable="true">Item 5</li>
+  </ul>
+</div>
+
+<script>
+const list = document.getElementById("list");
+let draggedItem = null;
+
+// DRAG START
+list.addEventListener("dragstart", (e) => {
+  draggedItem = e.target;
+  e.target.classList.add("dragging");
+});
+
+// DRAG END
+list.addEventListener("dragend", (e) => {
+  e.target.classList.remove("dragging");
+});
+
+// DRAG OVER
+list.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  const afterElement = getDragAfterElement(list, e.clientY);
+  const current = document.querySelector(".dragging");
+
+  if (afterElement == null) {
+    list.appendChild(current);
+  } else {
+    list.insertBefore(current, afterElement);
+  }
+});
+
+// HELPER FUNCTION
+function getDragAfterElement(container, y) {
+  const elements = [...container.querySelectorAll("li:not(.dragging)")];
+
+  return elements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+
+    if (offset < 0 && offset > closest.offset) {
+      return { offset: offset, element: child };
+    } else {
+      return closest;
+    }
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+</script>
+
+</body>
+</html>

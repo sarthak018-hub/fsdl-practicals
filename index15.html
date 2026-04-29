@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Stopwatch</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  width: 250px;
+  margin: 80px auto;
+  text-align: center;
+}
+
+.time {
+  font-size: 28px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: white;
+}
+
+button {
+  padding: 8px 12px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  background: #eee;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ddd;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Stopwatch</h2>
+
+  <div class="time" id="display">00:00:00</div>
+
+  <button onclick="start()">Start</button>
+  <button onclick="stop()">Stop</button>
+  <button onclick="reset()">Reset</button>
+</div>
+
+<script>
+let startTime = 0;
+let elapsedTime = 0;
+let timerInterval = null;
+
+const display = document.getElementById("display");
+
+// FORMAT TIME
+function formatTime(ms) {
+  let totalSeconds = Math.floor(ms / 1000);
+  let hours = Math.floor(totalSeconds / 3600);
+  let minutes = Math.floor((totalSeconds % 3600) / 60);
+  let seconds = totalSeconds % 60;
+
+  return (
+    String(hours).padStart(2, '0') + ":" +
+    String(minutes).padStart(2, '0') + ":" +
+    String(seconds).padStart(2, '0')
+  );
+}
+
+// START
+function start() {
+  if (timerInterval) return; // prevent multiple intervals
+
+  startTime = Date.now() - elapsedTime;
+
+  timerInterval = setInterval(() => {
+    elapsedTime = Date.now() - startTime;
+    display.innerText = formatTime(elapsedTime);
+  }, 1000);
+}
+
+// STOP
+function stop() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+// RESET
+function reset() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  elapsedTime = 0;
+  display.innerText = "00:00:00";
+}
+</script>
+
+</body>
+</html>

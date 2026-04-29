@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Preview</title>
+    <style>
+        .card {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+        }
+        .card2 {
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        img {
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <input type="text" id="nameInput" placeholder="Enter your name"><br>
+    <input type="text" id="emailInput" placeholder="Enter your email"><br>
+    <input type="text" id="phoneInput" placeholder="Enter your phone number"><br>
+    <input type="text" id="addressInput" placeholder="Enter your address"><br>
+
+    <img src="https://www.w3schools.com/w3images/avatar2.png" width="100">
+</div>
+
+<div class="card2"></div>
+
+<script>
+    let nameInput = document.querySelector('#nameInput');
+    let emailInput = document.querySelector('#emailInput');
+    let phoneInput = document.querySelector('#phoneInput');
+    let addressInput = document.querySelector('#addressInput');
+    let img = document.querySelector('img');
+
+    let card2 = document.querySelector('.card2');
+
+    // Initial preview structure
+    card2.innerHTML = `
+        <h3 id="name">Name: -</h3>
+        <p id="email">Email: -</p>
+        <p id="phone">Phone: -</p>
+        <p id="address">Address: -</p>
+        <img src="${img.src}" width="100">
+    `;
+
+    // Real-time updates
+  nameInput.oninput = () => {
+        document.querySelector("#name").innerText = "Name: " + (nameInput.value || "-");
+    };
+
+    emailInput.oninput = () => {
+        document.querySelector("#email").innerText = "Email: " + (emailInput.value || "-");
+    };
+
+    phoneInput.oninput = () => {
+        document.querySelector("#phone").innerText = "Phone: " + (phoneInput.value || "-");
+    };
+
+    addressInput.oninput = () => {
+        document.querySelector("#address").innerText = "Address: " + (addressInput.value || "-");
+    };
+</script>
+
+</body>
+</html>

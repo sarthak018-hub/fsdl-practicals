@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shopping Cart System</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.container {
+  width: 80%;
+  margin: 40px auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+/* PRODUCTS */
+.products, .cart {
+  margin-top: 20px;
+}
+
+.card {
+  background: white;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  display: inline-block;
+  width: 150px;
+  text-align: center;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* CART */
+.cart-item {
+  background: white;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls button {
+  margin: 0 5px;
+}
+
+.total {
+  text-align: right;
+  font-size: 18px;
+  margin-top: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Shop</h2>
+
+  <!-- PRODUCT FEED -->
+  <div class="products" id="products"></div>
+
+  <h2>Cart</h2>
+  <div class="cart" id="cart"></div>
+
+  <div class="total" id="total">Total: ₹0</div>
+</div>
+
+<script>
+// PRODUCT FEED
+const products = [
+  { id: 1, name: "Headphones", price: 1500 },
+  { id: 2, name: "Keyboard", price: 800 },
+  { id: 3, name: "Mouse", price: 500 }
+];
+
+// CART STATE
+let cart = [];
+
+// RENDER PRODUCTS
+const productContainer = document.getElementById("products");
+
+products.forEach(p => {
+  const div = document.createElement("div");
+  div.className = "card";
+
+  div.innerHTML = `
+    <h4>${p.name}</h4>
+    <p>₹${p.price}</p>
+    <button onclick="addToCart(${p.id})">Add</button>
+  `;
+
+  productContainer.appendChild(div);
+});
+
+// ADD TO CART
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  const existing = cart.find(item => item.id === id);
+
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+
+  renderCart();
+}
+
+// RENDER CART
+function renderCart() {
+  const cartContainer = document.getElementById("cart");
+  cartContainer.innerHTML = "";
+
+  cart.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "cart-item";
+
+    div.innerHTML = `
+      <div>
+        ${item.name} <br> ₹${item.price}
+      </div>
+
+      <div class="controls">
+        <button onclick="decrease(${item.id})">-</button>
+        ${item.qty}
+        <button onclick="increase(${item.id})">+</button>
+      </div>
+    `;
+
+    cartContainer.appendChild(div);
+  });
+
+  updateTotal();
+}
+
+// INCREASE
+function increase(id) {
+  const item = cart.find(i => i.id === id);
+  item.qty++;
+  renderCart();
+}
+
+// DECREASE
+function decrease(id) {
+  const item = cart.find(i => i.id === id);
+
+  if (item.qty > 1) {
+    item.qty--;
+  } else {
+    cart = cart.filter(i => i.id !== id);
+  }
+
+  renderCart();
+}
+
+// TOTAL
+function updateTotal() {
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price * item.qty;
+  });
+
+  document.getElementById("total").innerText = "Total: ₹" + total;
+}
+</script>
+
+</body>
+</html>

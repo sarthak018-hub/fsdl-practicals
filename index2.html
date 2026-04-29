@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skill Bars</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.container {
+  width: 60%;
+  margin: 40px auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 8px;
+  margin-right: 5px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.skill {
+  margin: 15px 0;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.bar {
+  width: 100%;
+  background: #ddd;
+  height: 20px;
+}
+
+.fill {
+  height: 100%;
+  background: #333;
+  width: 0;
+  transition: width 0.5s;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Skills</h2>
+
+  <div class="form">
+    <input type="text" id="skillName" placeholder="Skill name">
+    <input type="number" id="skillPercent" placeholder="Percentage">
+    <button onclick="addSkill()">Add</button>
+  </div>
+
+  <div id="skillsContainer"></div>
+</div>
+
+<script>
+function createSkill(name, percent) {
+  const skillDiv = document.createElement("div");
+  skillDiv.className = "skill";
+
+  const label = document.createElement("div");
+  label.className = "label";
+  label.innerText = name + " (" + percent + "%)";
+
+  const bar = document.createElement("div");
+  bar.className = "bar";
+
+  const fill = document.createElement("div");
+  fill.className = "fill";
+
+  setTimeout(() => {
+    fill.style.width = percent + "%";
+  }, 100);
+
+  bar.appendChild(fill);
+  skillDiv.appendChild(label);
+  skillDiv.appendChild(bar);
+
+  return skillDiv;
+}
+
+function addSkill() {
+  const nameInput = document.getElementById("skillName");
+  const percentInput = document.getElementById("skillPercent");
+
+  const name = nameInput.value.trim();
+  const percent = parseInt(percentInput.value);
+
+  // basic validation
+  if (!name || isNaN(percent) || percent < 0 || percent > 100) {
+    alert("Enter valid skill and percentage (0-100)");
+    return;
+  }
+
+  const container = document.getElementById("skillsContainer");
+  container.appendChild(createSkill(name, percent));
+
+  // clear inputs
+  nameInput.value = "";
+  percentInput.value = "";
+}
+</script>
+
+</body>
+</html>

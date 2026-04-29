@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chart.js Bar Chart</title>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  width: 60%;
+  margin: 50px auto;
+  text-align: center;
+}
+
+canvas {
+  background: white;
+  border: 1px solid #ddd;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Students by Department</h2>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script>
+// DATA
+const labels = ["CSE", "IT", "ECE", "ME"];
+const values = [100, 45, 30, 20];
+ctx
+// CHART  
+const ctx = document.getElementById("myChart");
+
+new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: labels,
+    datasets: [{
+      label: "Students",
+      data: values,
+      backgroundColor: "#777"
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

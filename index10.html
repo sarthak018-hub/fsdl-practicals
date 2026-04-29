@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FAQ Accordion</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.container {
+  width: 60%;
+  margin: 40px auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+.faq-item {
+  background: white;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+}
+
+.question {
+  padding: 12px;
+  cursor: pointer;
+  background: #eee;
+}
+
+.answer {
+  padding: 12px;
+  display: none;
+  border-top: 1px solid #ddd;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>FAQ</h2>
+
+  <div class="faq-item">
+    <div class="question">What is this project?</div>
+    <div class="answer">This is a simple FAQ accordion using HTML, CSS, and JavaScript.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="question">How does it work?</div>
+    <div class="answer">Clicking a question toggles its answer section.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="question">Can multiple sections stay open?</div>
+    <div class="answer">No. Only one section is open at a time.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="question">Is this reusable?</div>
+    <div class="answer">Yes. You can add more items easily.</div>
+  </div>
+
+</div>
+
+<script>
+const questions = document.querySelectorAll(".question");
+
+questions.forEach(q => {
+  q.addEventListener("click", () => {
+    const currentAnswer = q.nextElementSibling;
+
+    // close all
+    document.querySelectorAll(".answer").forEach(ans => {
+      if (ans !== currentAnswer) {
+        ans.style.display = "none";
+      }
+    });
+
+    // toggle current
+    currentAnswer.style.display =
+      currentAnswer.style.display === "block" ? "none" : "block";
+  });
+});
+</script>
+
+</body>
+</html>

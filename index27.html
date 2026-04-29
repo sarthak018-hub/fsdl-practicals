@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weather Dashboard</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+}
+
+.container {
+  width: 90%;
+  margin: 30px auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+/* SECTION */
+.section {
+  background: white;
+  margin: 15px 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+}
+
+/* BAR */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  height: 150px;
+  gap: 10px;
+}
+
+.bar {
+  width: 30px;
+  background: #777;
+  text-align: center;
+  color: white;
+}
+
+/* LINE */
+.line {
+  display: flex;
+  align-items: flex-end;
+  height: 150px;
+  gap: 10px;
+}
+
+.point {
+  width: 10px;
+  height: 10px;
+  background: black;
+  border-radius: 50%;
+  position: relative;
+}
+
+/* PIE */
+.pie {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: auto;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Weather Dashboard</h2>
+
+  <div class="section">
+    <h4>Temperature (Bar)</h4>
+    <div class="bar-chart" id="barChart"></div>
+  </div>
+
+  <div class="section">
+    <h4>Temperature Trend (Line)</h4>
+    <div class="line" id="lineChart"></div>
+  </div>
+
+  <div class="section">
+    <h4>Weather Distribution (Pie)</h4>
+    <div class="pie" id="pieChart"></div>
+  </div>
+
+</div>
+
+<script>
+const data = [
+  { day: "Mon", temp: 30 },
+  { day: "Tue", temp: 35 },
+  { day: "Wed", temp: 28 },
+  { day: "Thu", temp: 32 },
+  { day: "Fri", temp: 36 },
+  { day: "Sat", temp: 31 },
+  { day: "Sun", temp: 29 }
+];
+
+// BAR
+const bar = document.getElementById("barChart");
+const max = Math.max(...data.map(d => d.temp));
+
+data.forEach(d => {
+  const el = document.createElement("div");
+  el.className = "bar";
+  el.style.height = (d.temp / max * 100) + "%";
+  el.innerText = d.temp;
+  bar.appendChild(el);
+});
+
+// LINE (basic representation)
+const line = document.getElementById("lineChart");
+data.forEach(d => {
+  const p = document.createElement("div");
+  p.className = "point";
+  p.style.bottom = (d.temp / max * 100) + "%";
+  line.appendChild(p);
+});
+
+// PIE (distribution)
+const counts = { Hot: 0, Mild: 0, Cool: 0 };
+
+data.forEach(d => {
+  if (d.temp > 33) counts.Hot++;
+  else if (d.temp > 29) counts.Mild++;
+  else counts.Cool++;
+});
+
+const total = Object.values(counts).reduce((a,b)=>a+b,0);
+
+let start = 0;
+let colors = ["#777","#aaa","#ccc"];
+let i = 0;
+let gradient = "";
+
+for (let key in counts) {
+  let percent = counts[key] / total * 100;
+  gradient += `${colors[i]} ${start}% ${start+percent}%, `;
+  start += percent;
+  i++;
+}
+
+document.getElementById("pieChart").style.background =
+  `conic-gradient(${gradient})`;
+</script>
+
+</body>
+</html>

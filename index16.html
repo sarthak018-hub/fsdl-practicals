@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quiz App</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  width: 400px;
+  margin: 60px auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+.question {
+  margin-bottom: 10px;
+}
+
+.options label {
+  display: block;
+  margin: 5px 0;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  background: #eee;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ddd;
+}
+
+.result {
+  margin-top: 15px;
+  padding: 10px;
+  background: white;
+  border: 1px solid #ddd;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Quiz</h2>
+
+  <div id="quiz"></div>
+
+  <button onclick="submitQuiz()">Submit</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+// QUESTIONS DATA
+const questions = [
+  {
+    q: "Capital of India?",
+    options: ["Mumbai", "Delhi", "Pune", "Chennai"],
+    answer: 1
+  },
+  {
+    q: "2 + 2 = ?",
+    options: ["3", "4", "5", "6"],
+    answer: 1
+  },
+  {
+    q: "HTML stands for?",
+    options: ["Hyper Trainer Marking Language", "Hyper Text Markup Language", "High Text Machine Language", "None"],
+    answer: 1
+  }
+];
+
+const quizDiv = document.getElementById("quiz");
+
+// RENDER QUESTIONS
+questions.forEach((q, index) => {
+  const div = document.createElement("div");
+  div.className = "question";
+
+  let optionsHTML = "";
+
+  q.options.forEach((opt, i) => {
+    optionsHTML += `
+      <label>
+        <input type="radio" name="q${index}" value="${i}">
+        ${opt}
+      </label>
+    `;
+  });
+
+  div.innerHTML = `
+    <strong>${q.q}</strong>
+    <div class="options">${optionsHTML}</div>
+  `;
+
+  quizDiv.appendChild(div);
+});
+
+// SUBMIT
+function submitQuiz() {
+  let score = 0;
+
+  questions.forEach((q, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    if (selected && parseInt(selected.value) === q.answer) {
+      score++;
+    }
+  });
+
+  document.getElementById("result").innerText =
+    "Score: " + score + " / " + questions.length;
+}
+</script>
+
+</body>
+</html>

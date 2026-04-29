@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+/* CONTAINER */
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+/* HEADER */
+.header {
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* SECTIONS */
+.section {
+  background: white;
+  padding: 15px;
+  margin: 15px 0;
+  border: 1px solid #ddd;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+/* GRID (PROJECTS) */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.project {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+/* SKILLS */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background: #eee;
+  font-size: 13px;
+}
+
+/* CONTACT */
+.contact p {
+  margin: 5px 0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="name">Your Name</div>
+    <div>Web Developer | Student</div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section">
+    <div class="section-title">About</div>
+    <p>
+      I am a computer engineering student with a strong foundation in programming,
+      problem-solving, and web development.
+    </p>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="section-title">Skills</div>
+    <div class="skills">
+      <div class="skill">C++</div>
+      <div class="skill">Java</div>
+      <div class="skill">HTML</div>
+      <div class="skill">CSS</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">DSA</div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section">
+    <div class="section-title">Projects</div>
+    <div class="projects">
+
+      <div class="project">
+        <strong>Shopping Cart</strong>
+        <p>Dynamic cart with quantity and total updates.</p>
+      </div>
+
+      <div class="project">
+        <strong>To-Do App</strong>
+        <p>Task manager with add/delete functionality.</p>
+      </div>
+
+      <div class="project">
+        <strong>Product Filter</strong>
+        <p>Filter products based on category.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section contact">
+    <div class="section-title">Contact</div>
+    <p>Email: your@email.com</p>
+    <p>GitHub: github.com/yourprofile</p>
+    <p>LinkedIn: linkedin.com/in/yourprofile</p>
+  </div>
+
+</div>
+
+</body>
+</html>
